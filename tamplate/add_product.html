@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Produk</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <h1>Tambah Produk Bunga</h1>
+
+    <form method="POST" onsubmit="unformatHarga()">
+        <label for="name">Nama Produk:</label>
+        <input type="text" name="name" required>
+
+        <label for="category">Kategori Produk:</label>
+        <select name="category" required>
+            <option value="">-- Pilih Kategori --</option>
+            <option value="Mawar">Mawar</option>
+            <option value="Tulip">Tulip</option>
+            <option value="Lavender">Lavender</option>
+            <option value="Daisy">Daisy</option>
+            <option value="Lily">Lily</option>
+            <option value="Anyelir">Anyelir</option>
+        </select>
+
+        <label for="price">Harga (Rp):</label>
+        <input type="text" name="price" id="price" required oninput="formatRupiah(this)">
+
+        <label for="description">Deskripsi:</label>
+        <textarea name="description" required></textarea>
+
+        <label for="image_url">URL Gambar Utama</label>
+        <input type="text" name="image_url" id="image_url" required>
+
+        <a href="category_products.html">Tambah Produk</a>
+    </form>
+
+    <div class="links">
+        <a href="product_list.html">Lihat Semua Produk</a> |
+        <a href="dashboard.html">Kembali ke Dashboard</a>
+    </div>
+
+    <script>
+        function formatRupiah(input) {
+            let angka = input.value.replace(/[^\d]/g, "");
+            input.value = new Intl.NumberFormat("id-ID").format(angka);
+        }
+
+        function unformatHarga() {
+            const input = document.getElementById("price");
+            input.value = input.value.replace(/\./g, "").replace(/[^\d]/g, "");
+        }
+    </script>
+</body>
+</html>

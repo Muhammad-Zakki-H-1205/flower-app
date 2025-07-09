@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Produk</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <h1>Edit Produk</h1>
+    <form method="POST" onsubmit="unformatHarga()">
+        <label for="name">Nama Produk:</label>
+        <input type="text" name="name" value="Mawar Hitam" required>
+
+        <label for="category">Kategori Produk:</label>
+        <input type="text" name="category" value="Mawar" required>
+
+        <label for="price">Harga (Rp):</label>
+        <input type="text" name="price" id="price" value="Rp 25.000" required oninput="formatRupiah(this)">
+
+        <!-- <label for="description">Deskripsi:</label>
+        <textarea name="description" required>{{ product.description }}</textarea> -->
+
+        <label for="image_url">URL Gambar Utama</label>
+        <input type="text" name="image_url" value="https://images.tokopedia.net/img/cache/700/VqbcmM/2024/10/4/88254116-a52d-4b94-a0a8-c23a2c67d92e.jpg">
+
+        <a href="product_list.html">Simpan Perubahan</a>
+    </form>
+
+    <a href="product_list.html">Kembali</a>
+
+    <script>
+        function formatRupiah(input) {
+            let angka = input.value.replace(/[^\d]/g, "");
+            input.value = new Intl.NumberFormat("id-ID").format(angka);
+        }
+
+        function unformatHarga() {
+            const input = document.getElementById("price");
+            input.value = input.value.replace(/\./g, "").replace(/[^\d]/g, "");
+        }
+    </script>
+</body>
+</html>

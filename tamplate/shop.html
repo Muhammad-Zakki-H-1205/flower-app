@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Toko Bunga</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="dashboard.html">Beranda</a></li>
+            <li><a href="product_list.html">Produk</a></li>
+            <li><a href="#">Tentang Kami</a></li>
+            <li><a href="#">Kontak</a></li>
+            <li><a href="login.html">Keluar</a></li>
+        </ul>
+    </div>
+
+    <h1 style="text-align: center;">Toko Bunga</h1>
+
+    <div class="product-gallery">
+        <div class="product-item">
+            <img src="{{ product.image_url }}" 
+                 alt="{{ product.name }}" 
+                 class="main-image" 
+                 onclick="swapImage(this)" 
+                 data-alt-images='["{{ product.image_url_alt1 }}", "{{ product.image_url_alt2 }}"]'>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <p><strong>{{ product.price|rupiah }}</strong></p>
+
+            <form action="{{ url_for('main.add_to_cart', product_id=product.id) }}" method="POST">
+                <button type="submit">+ Keranjang</button>
+            </form>
+            <p><em>Login untuk membeli</em></p>
+        </div>
+    </div>
+
+    <script>
+    function swapImage(imgElement) {
+        const altImages = JSON.parse(imgElement.getAttribute('data-alt-images') || "[]");
+        const currentSrc = imgElement.src;
+
+        const index = altImages.indexOf(currentSrc);
+        const nextIndex = (index + 1) % (altImages.length + 1);
+
+        if (nextIndex === altImages.length) {
+            imgElement.src = imgElement.getAttribute('src-original') || imgElement.src;
+        } else {
+            if (!imgElement.getAttribute('src-original')) {
+                imgElement.setAttribute('src-original', imgElement.src);
+            }
+            imgElement.src = altImages[nextIndex];
+        }
+    }
+    </script>
+</body>
+</html>
